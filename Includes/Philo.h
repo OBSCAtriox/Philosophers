@@ -6,7 +6,7 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:14:00 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/11 17:14:50 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/18 17:58:00 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_philo t_philo;
 typedef struct s_data
 {
     int num_phi;
+    int num_meal_flag;
+    int num_meals;
     long time_die;
     long time_eat;
     long time_spleep;
@@ -43,6 +45,7 @@ typedef struct s_data
 typedef struct s_philo
 {
     int id;
+    int got_meals;
     long last_meal_time;
     pthread_t thread;
     pthread_mutex_t *left_fork;
@@ -69,6 +72,7 @@ void    monitor_helper(t_data *data, int i);
 int ver_valid_timers(int t_eat, int t_die, int t_sleep);
 int ft_atoi(char *li);
 int	ver_args_valid(char **av);
+int main_thread_handle(t_data *data);
 
 // utils_2.c
 long get_time_ms(void);

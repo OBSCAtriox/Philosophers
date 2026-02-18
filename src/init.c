@@ -6,7 +6,7 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 13:41:53 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/11 17:27:13 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/18 17:58:44 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void philo_init(t_data *data)
     i = 0;
     while (i < data->num_phi)
     {
+        data->philos[i].got_meals = 0;
         data->philos[i].id = i + 1;
         data->philos[i].last_meal_time = 0;
         data->philos[i].data = data;
@@ -53,6 +54,8 @@ int	init_data(t_data *data, char **av)
 {
 	if (ver_valid_timers(ft_atoi(av[2]), ft_atoi(av[3]), ft_atoi(av[4])))
 		return (1);
+    data->num_meal_flag = 0;
+    data->num_meals = 0;
 	data->num_phi = ft_atoi(av[1]);
 	data->time_die = ft_atoi(av[2]);
 	data->time_eat = ft_atoi(av[3]);

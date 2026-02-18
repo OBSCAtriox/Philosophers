@@ -6,7 +6,7 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 09:39:55 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/11 17:34:52 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/18 18:24:51 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void    *routine(void *arg)
     t_philo *philo;
 
     philo = (t_philo *)arg;
-    //printf("Thread %d started\n", philo->id);
     if (philo->data->num_phi % 2 == 0)
         usleep(100);
     while (1)
