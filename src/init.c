@@ -6,7 +6,7 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 13:41:53 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/18 17:58:44 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:34:47 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	init_data(t_data *data, char **av)
 {
 	if (ver_valid_timers(ft_atoi(av[2]), ft_atoi(av[3]), ft_atoi(av[4])))
 		return (1);
+    data->philo_done = 0;
     data->num_meal_flag = 0;
     data->num_meals = 0;
 	data->num_phi = ft_atoi(av[1]);
@@ -70,6 +71,7 @@ int	init_data(t_data *data, char **av)
 		return (1);
 	pthread_mutex_init(&data->mutex_death, NULL);
 	pthread_mutex_init(&data->mutex_print, NULL);
+    pthread_mutex_init(&data->mutex_philo_meals, NULL);
     if (mutex_init(data))
         return (1);
     return (0);

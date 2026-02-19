@@ -6,7 +6,7 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 16:08:41 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/18 14:09:45 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:10:24 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void    *monitor(void *arg)
             pthread_mutex_unlock(&data->mutex_death);
             curr_time = get_time_ms();
             if ((curr_time - data->philos[i].last_meal_time) > data->time_die)
-                return (monitor_helper(data, i),printf("TEST\n"), NULL);
+                return (monitor_helper(data, i), NULL);
             i++;
         }
         usleep(100);

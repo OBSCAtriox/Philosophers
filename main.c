@@ -6,7 +6,7 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:26:11 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/18 18:23:46 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:28:51 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,20 @@ static int main_help2(t_data *data, int ac, char **av)
 	return (0);
 }
 
+static int create_philos(t_data *data)
+{
+	int i = 0;
+
+	while (i < data->num_phi)
+	{
+		pthread_create(&data->philos[i].thread, NULL, routine, &data->philos[i]);
+		if (!&data->philos[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int main(int ac, char *av[])
 {
 	pthread_t monitor_thread;
@@ -42,7 +56,7 @@ int main(int ac, char *av[])
 	if (main_help1(ac, av))
 		return (1);
 	if (init_data(&data, av))
-		return (printf("Init_data Failed\n"), 1);
+		return (cleanup(&data), printf("Init_data Failed\n"), 1);
 	philo_init(&data);
 	main_help2(&data, ac, av);
 	data.start_time = get_time_ms();
@@ -50,12 +64,10 @@ int main(int ac, char *av[])
 	while (i < data.num_phi)
 		data.philos[i++].last_meal_time = data.start_time;
 	pthread_create(&monitor_thread, NULL, monitor, &data);
-	i = 0;
-	while (i < data.num_phi)
-	{
-		pthread_create(&data.philos[i].thread, NULL, routine, &data.philos[i]);
-		i++;
-	}
+	if (!monitor_thread)
+		return (cleanup(&data), 1);
+	if (create_philos(&data))
+		return (cleanup(&data), 1);
 	i = 0;
 	while (i < data.num_phi)
 		pthread_join(data.philos[i++].thread, NULL);

@@ -6,7 +6,7 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:14:00 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/18 17:58:00 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:32:52 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@
 
 # define TRUE = 1
 # define FALSE = 0
+# define TAKE_FORK "\033[93mhas Taken a fork\033[0m"
+# define EAT "\033[92mis eating\033[0m"
+# define SLEEP "\033[96mis sleeping\033[0m"
+# define THINK "\033[95mis thinking\033[0m"
+# define DIED "\033[91mdied\033[0m"
 
 typedef struct s_philo t_philo;
 
@@ -30,6 +35,7 @@ typedef struct s_data
     int num_phi;
     int num_meal_flag;
     int num_meals;
+    int philo_done;
     long time_die;
     long time_eat;
     long time_spleep;
@@ -37,6 +43,7 @@ typedef struct s_data
     int death;
     pthread_mutex_t mutex_print;
     pthread_mutex_t mutex_death;
+    pthread_mutex_t mutex_philo_meals;
     pthread_mutex_t *forks;
     t_philo *philos;
     
