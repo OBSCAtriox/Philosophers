@@ -6,7 +6,7 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:44:04 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/18 18:25:08 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:38:05 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,25 @@ int ver_valid_timers(int t_eat, int t_die, int t_sleep)
 {
 	if (t_eat > INT_MAX || t_die > INT_MAX || t_sleep > INT_MAX)
 		return (1);
+	return (0);
+}
+
+void eat_sleep_think(t_philo *philo)
+{
+	philo_eat(philo);
+	philo_sleep(philo);
+	philo_thinking(philo);
+}
+
+int routine_help(t_philo *philo)
+{
+	if (!philo->finished && is_full(philo))
+	{
+		philo->finished = 1;
+		pthread_mutex_lock(&philo->data->mutex_philo_meals);
+		philo->data->philo_done++;
+		pthread_mutex_unlock(&philo->data->mutex_philo_meals);
+		return (1);
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 09:39:55 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/19 16:36:47 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/23 18:42:46 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void philo_sleep(t_philo *ph)
 
 void philo_eat(t_philo *ph)
 {
-    pthread_mutex_lock(&ph->data->mutex_death);
+    pthread_mutex_lock(&ph->mutex_lmt);
     ph->last_meal_time = get_time_ms();
-    pthread_mutex_unlock(&ph->data->mutex_death);
+    ph->got_meals++;
+    pthread_mutex_unlock(&ph->mutex_lmt);
     take_forks(ph);
     print_state(ph, EAT);
-    ph->got_meals++;
     death_sleep(ph->data->time_eat, ph->data);
     unlock_forks(ph);
 }
@@ -63,20 +63,13 @@ void *routine(void *arg)
         if (philo->data->death)
         {
             pthread_mutex_unlock(&philo->data->mutex_death);
-            break ;
+            break;
         }
         pthread_mutex_unlock(&philo->data->mutex_death);
         if (philo->data->num_meal_flag == 0)
-            if (is_full(philo))
-            {
-                pthread_mutex_lock(&philo->data->mutex_philo_meals);
-                philo->data->philo_done++;
-                pthread_mutex_lock(&philo->data->mutex_philo_meals);
-                break ;
-            }
-        philo_eat(philo);
-        philo_sleep(philo);
-        philo_thinking(philo);
+            if (routine_help(philo))
+                break;
+        eat_sleep_think(philo);
     }
     return (NULL);
 }

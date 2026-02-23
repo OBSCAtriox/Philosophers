@@ -6,7 +6,7 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:14:00 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/19 16:32:52 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/23 18:01:04 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ typedef struct s_data
 typedef struct s_philo
 {
     int id;
+    int finished;
     int got_meals;
     long last_meal_time;
     pthread_t thread;
+    pthread_mutex_t mutex_lmt;
     pthread_mutex_t *left_fork;
     pthread_mutex_t *right_fork;
     t_data *data;
@@ -70,6 +72,7 @@ void    philo_thinking(t_philo *ph);
 void    philo_sleep(t_philo *ph);
 void	philo_eat(t_philo *ph);
 void    *routine(void *arg);
+int is_full(t_philo *philo);
 
 // monitor.c
 void    *monitor(void *arg);
@@ -79,12 +82,14 @@ void    monitor_helper(t_data *data, int i);
 int ver_valid_timers(int t_eat, int t_die, int t_sleep);
 int ft_atoi(char *li);
 int	ver_args_valid(char **av);
-int main_thread_handle(t_data *data);
+void eat_sleep_think(t_philo *philo);
+int routine_help(t_philo *philo);
 
 // utils_2.c
 long get_time_ms(void);
 long timestamp(t_data *data);
 void    death_sleep(long ms, t_data *data);
+int monitor_helper2(t_data *data, int i);
 
 // utils_3.c
 void	print_state(t_philo *ph, char *msg);

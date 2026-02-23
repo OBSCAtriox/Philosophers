@@ -6,7 +6,7 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 10:24:16 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/19 15:36:31 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/23 18:44:02 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ void	take_forks(t_philo *ph)
     }
 	else if (ph->id % 2 == 0)
 	{
-		pthread_mutex_lock(ph->left_fork);
+		pthread_mutex_lock(ph->right_fork);
 		print_state(ph, TAKE_FORK);
-        pthread_mutex_lock(ph->right_fork);
+        pthread_mutex_lock(ph->left_fork);
         print_state(ph, TAKE_FORK);
 	}
     else
     {
-        pthread_mutex_lock(ph->right_fork);
-        print_state(ph, TAKE_FORK);
         pthread_mutex_lock(ph->left_fork);
+        print_state(ph, TAKE_FORK);
+        pthread_mutex_lock(ph->right_fork);
         print_state(ph, TAKE_FORK);
     }
 }

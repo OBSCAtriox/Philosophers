@@ -6,7 +6,7 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 09:24:16 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/11 15:55:29 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/23 17:52:49 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,13 @@ void    cleanup(t_data *data)
 
 void    free_philos(t_data *data)
 {
+    int i;
+
     if (!data || !data->philos)
         return ;
+    i = 0;
+    while (i < data->num_phi)
+        pthread_mutex_destroy(&data->philos[i++].mutex_lmt);
     free(data->philos);
     data->philos = NULL;
 }
