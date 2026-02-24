@@ -6,13 +6,13 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:26:11 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/23 18:31:45 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/24 15:44:26 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Includes/Philo.h"
 
-static int main_help1(int ac, char **av)
+static int	main_help1(int ac, char **av)
 {
 	if (ac < 5 || ac > 6)
 		return (printf("Invalid number of Arguments\n"), 1);
@@ -21,7 +21,7 @@ static int main_help1(int ac, char **av)
 	return (0);
 }
 
-static int main_help2(t_data *data, int ac, char **av)
+static int	main_help2(t_data *data, int ac, char **av)
 {
 	if (ac == 5)
 		data->num_meal_flag = 1;
@@ -34,14 +34,15 @@ static int main_help2(t_data *data, int ac, char **av)
 	return (0);
 }
 
-static int create_philos(t_data *data)
+static int	create_philos(t_data *data)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	while (i < data->num_phi)
 	{
-		pthread_create(&data->philos[i].thread, NULL, routine, &data->philos[i]);
-		if (!&data->philos[i])
+		if (pthread_create(&data->philos[i].thread, NULL, routine,
+				&data->philos[i]) != 0)
 			return (1);
 		usleep(1);
 		i++;
@@ -49,11 +50,12 @@ static int create_philos(t_data *data)
 	return (0);
 }
 
-int main(int ac, char *av[])
+int	main(int ac, char *av[])
 {
-	pthread_t monitor_thread;
-	int i;
-	t_data data;
+	pthread_t	monitor_thread;
+	int			i;
+	t_data		data;
+
 	if (main_help1(ac, av))
 		return (1);
 	if (init_data(&data, av))
@@ -64,9 +66,9 @@ int main(int ac, char *av[])
 	i = 0;
 	while (i < data.num_phi)
 		data.philos[i++].last_meal_time = data.start_time;
-	if (pthread_create(&monitor_thread, NULL, monitor, &data) != 0)
-		return (cleanup(&data), 1);
 	if (create_philos(&data))
+		return (cleanup(&data), 1);
+	if (pthread_create(&monitor_thread, NULL, monitor, &data) != 0)
 		return (cleanup(&data), 1);
 	i = 0;
 	while (i < data.num_phi)

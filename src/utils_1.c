@@ -6,41 +6,41 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:44:04 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/23 14:38:05 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/24 16:31:57 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/Philo.h"
 
-int ft_atoi(char *li)
+int	ft_atoi(char *li)
 {
-	int i;
-	int result;
-	int sign;
+	int	i;
+	long	result;
 
 	i = 0;
-	sign = 1;
 	result = 0;
 	while (li[i] == 32 || li[i] == 9)
 		i++;
-	if (li[i] == '-' || li[i] == '+')
-	{
-		if (li[i] == '-')
-			sign *= -1;
+	if (li[i] == '+')
 		i++;
-	}
+	if (li[i] == '-')
+		return (-1);
 	while (li[i] >= '0' && li[i] <= '9')
 	{
 		result = result * 10 + (li[i] - 48);
+		if (result > INT_MAX)
+			return (-1);
 		i++;
 	}
-	return (result * sign);
+	if (li[i] != '\0')
+		return (-1);
+	return ((int)result);
 }
 
-int ver_args_valid(char **av)
+int	ver_args_valid(char **av)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 1;
 	while (av[i])
@@ -57,21 +57,23 @@ int ver_args_valid(char **av)
 	return (0);
 }
 
-int ver_valid_timers(int t_eat, int t_die, int t_sleep)
+int	ver_valid_timers(int t_eat, int t_die, int t_sleep)
 {
 	if (t_eat > INT_MAX || t_die > INT_MAX || t_sleep > INT_MAX)
+		return (1);
+	if (t_eat <= 0 || t_die <= 0 || t_sleep <= 0)
 		return (1);
 	return (0);
 }
 
-void eat_sleep_think(t_philo *philo)
+void	eat_sleep_think(t_philo *philo)
 {
 	philo_eat(philo);
 	philo_sleep(philo);
 	philo_thinking(philo);
 }
 
-int routine_help(t_philo *philo)
+int	routine_help(t_philo *philo)
 {
 	if (!philo->finished && is_full(philo))
 	{
