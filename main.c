@@ -6,7 +6,7 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:26:11 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/26 16:25:11 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/26 17:05:36 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static int	create_philos(t_data *data)
 		if (pthread_create(&data->philos[i].thread, NULL, routine,
 				&data->philos[i]) != 0)
 			return (1);
-		//usleep(1);
 		i++;
 	}
 	return (0);

@@ -6,13 +6,13 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 16:08:41 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/26 16:55:06 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/26 17:04:22 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/Philo.h"
 
-void monitor_helper(t_data *data, int i)
+void	monitor_helper(t_data *data, int i)
 {
 	pthread_mutex_lock(&data->mutex_death);
 	print_state(&data->philos[i], DIED);
@@ -20,7 +20,7 @@ void monitor_helper(t_data *data, int i)
 	pthread_mutex_unlock(&data->mutex_death);
 }
 
-int philo_done(t_data *data)
+int	philo_done(t_data *data)
 {
 	pthread_mutex_lock(&data->mutex_philo_meals);
 	if (data->num_meals > 0 && data->philo_done == data->num_phi)
@@ -35,11 +35,11 @@ int philo_done(t_data *data)
 	return (0);
 }
 
-void *monitor(void *arg)
+void	*monitor(void *arg)
 {
-	t_data *data;
-	int i;
-	long curr_time;
+	t_data	*data;
+	int		i;
+	long	curr_time;
 
 	data = (t_data *)arg;
 	while (1)

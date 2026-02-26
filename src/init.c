@@ -6,15 +6,15 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 13:41:53 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/26 16:55:34 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/26 17:04:20 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/Philo.h"
 
-int mutex_init(t_data *data)
+int	mutex_init(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->num_phi)
@@ -32,9 +32,9 @@ int mutex_init(t_data *data)
 	return (0);
 }
 
-void philo_init(t_data *data)
+void	philo_init(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->num_phi)
@@ -52,7 +52,7 @@ void philo_init(t_data *data)
 	}
 }
 
-int init_data(t_data *data, char **av)
+int	init_data(t_data *data, char **av)
 {
 	data->philo_done = 0;
 	data->num_meal_flag = 0;
@@ -61,7 +61,8 @@ int init_data(t_data *data, char **av)
 	data->time_die = ft_atoi(av[2]);
 	data->time_eat = ft_atoi(av[3]);
 	data->time_spleep = ft_atoi(av[4]);
-	if (data->num_phi <= 0 || data->time_die <= 0 || data->time_eat <= 0 || data->time_spleep <= 0 || data->num_phi > 2000)
+	if (data->num_phi <= 0 || data->time_die <= 0 || data->time_eat <= 0
+		|| data->time_spleep <= 0 || data->num_phi > 2000)
 		return (printf("Error: invalid argument or overflow\n"), 1);
 	data->death = 0;
 	data->start_time = 0;

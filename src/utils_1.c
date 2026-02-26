@@ -6,16 +6,16 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:44:04 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/26 16:13:04 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/26 17:04:28 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/Philo.h"
 
-int ft_atoi(char *li)
+int	ft_atoi(char *li)
 {
-	int i;
-	long result;
+	int		i;
+	long	result;
 
 	i = 0;
 	result = 0;
@@ -37,10 +37,10 @@ int ft_atoi(char *li)
 	return ((int)result);
 }
 
-int ver_args_valid(char **av)
+int	ver_args_valid(char **av)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 1;
 	while (av[i])
@@ -57,7 +57,7 @@ int ver_args_valid(char **av)
 	return (0);
 }
 
-int ver_valid_timers(int t_eat, int t_die, int t_sleep)
+int	ver_valid_timers(int t_eat, int t_die, int t_sleep)
 {
 	if (t_eat > INT_MAX || t_die > INT_MAX || t_sleep > INT_MAX)
 		return (1);
@@ -66,19 +66,18 @@ int ver_valid_timers(int t_eat, int t_die, int t_sleep)
 	return (0);
 }
 
-void eat_sleep_think(t_philo *philo)
+void	eat_sleep_think(t_philo *philo)
 {
 	philo_eat(philo);
 	philo_sleep(philo);
 	philo_thinking(philo);
 }
 
-int routine_help(t_philo *philo)
+int	routine_help(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->mutex_philo_meals);
 	if (!philo->finished && is_full(philo))
 	{
-
 		philo->finished = 1;
 		philo->data->philo_done++;
 		pthread_mutex_unlock(&philo->data->mutex_philo_meals);
