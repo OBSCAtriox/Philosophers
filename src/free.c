@@ -6,28 +6,28 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 09:24:16 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/24 16:50:35 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/26 16:05:02 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/Philo.h"
 
-void	cleanup(t_data *data)
+void cleanup(t_data *data)
 {
 	if (!data)
-		return ;
+		return;
 	pthread_mutex_destroy(&data->mutex_print);
 	pthread_mutex_destroy(&data->mutex_death);
 	free_forks(data);
 	free_philos(data);
 }
 
-void	free_philos(t_data *data)
+void free_philos(t_data *data)
 {
-	int	i;
+	int i;
 
 	if (!data || !data->philos)
-		return ;
+		return;
 	i = 0;
 	while (i < data->num_phi)
 		pthread_mutex_destroy(&data->philos[i++].mutex_lmt);
@@ -35,12 +35,12 @@ void	free_philos(t_data *data)
 	data->philos = NULL;
 }
 
-void	free_forks(t_data *data)
+void free_forks(t_data *data)
 {
-	int	i;
+	int i;
 
 	if (!data || !data->forks)
-		return ;
+		return;
 	i = 0;
 	while (i < data->num_phi)
 	{

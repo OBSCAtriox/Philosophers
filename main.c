@@ -6,7 +6,7 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:26:11 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/24 15:44:26 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/02/26 16:25:11 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	main_help2(t_data *data, int ac, char **av)
 	{
 		data->num_meals = ft_atoi(av[5]);
 		if (data->num_meals <= 0)
-			return (printf("Invalid meal number"), 1);
+			return (printf("Invalid meal number\n"), 1);
 	}
 	return (0);
 }
@@ -44,7 +44,7 @@ static int	create_philos(t_data *data)
 		if (pthread_create(&data->philos[i].thread, NULL, routine,
 				&data->philos[i]) != 0)
 			return (1);
-		usleep(1);
+		//usleep(1);
 		i++;
 	}
 	return (0);
@@ -59,9 +59,10 @@ int	main(int ac, char *av[])
 	if (main_help1(ac, av))
 		return (1);
 	if (init_data(&data, av))
-		return (cleanup(&data), printf("Init_data Failed\n"), 1);
+		return (printf("Init_data Failed\n"), 1);
 	philo_init(&data);
-	main_help2(&data, ac, av);
+	if (main_help2(&data, ac, av))
+		return (cleanup(&data), 1);
 	data.start_time = get_time_ms();
 	i = 0;
 	while (i < data.num_phi)
