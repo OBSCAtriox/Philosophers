@@ -5,7 +5,8 @@ FLAG_THREAD = -g -O0 -pthread
 NAME = philo
 
 SRC = main.c src/init.c src/monitor.c src/routine.c \
-src/utils_1.c src/utils_2.c src/utils_3.c src/free.c \
+src/utils_1.c src/utils_2.c src/utils_3.c src/utils_4.c \
+src/free.c \
 
 OBJ = $(SRC:.c=.o)
 

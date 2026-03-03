@@ -6,7 +6,7 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:14:00 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/02/26 16:12:27 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/03/03 17:15:22 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,9 @@ int						monitor_check_starving(t_data *data, long curr_time,
 void					print_state(t_philo *ph, char *msg);
 void					take_forks(t_philo *ph);
 void					unlock_forks(t_philo *ph);
+
+// utils_4.c
+int						if_philo_finished(t_philo *philo);
 
 // free.c
 void					cleanup(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:44:04 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/03/02 17:15:32 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/03/03 16:41:04 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ void	eat_sleep_think(t_philo *philo)
 {
 	philo_eat(philo);
 	pthread_mutex_lock(&philo->data->mutex_philo_meals);
-	if (philo->finished || philo->data->philo_done == philo->data->num_phi)
+	if (philo->finished || philo->data->philo_done >= philo->data->num_phi)
 		return (pthread_mutex_unlock(&philo->data->mutex_philo_meals),
 			(void)(0));
 	pthread_mutex_unlock(&philo->data->mutex_philo_meals);
 	philo_sleep(philo);
 	pthread_mutex_lock(&philo->data->mutex_philo_meals);
-	if (philo->finished || philo->data->philo_done == philo->data->num_phi)
+	if (philo->finished || philo->data->philo_done >= philo->data->num_phi)
 		return (pthread_mutex_unlock(&philo->data->mutex_philo_meals),
 			(void)(0));
 	pthread_mutex_unlock(&philo->data->mutex_philo_meals);

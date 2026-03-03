@@ -6,7 +6,7 @@
 /*   By: tide-pau <tide-pau@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 09:39:55 by tide-pau          #+#    #+#             */
-/*   Updated: 2026/03/02 17:22:23 by tide-pau         ###   ########.fr       */
+/*   Updated: 2026/03/03 16:58:01 by tide-pau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	philo_thinking(t_philo *ph)
 {
+	death_sleep(0, ph->data);
 	print_state(ph, THINK);
 }
 
@@ -61,14 +62,8 @@ void	*routine(void *arg)
 			break ;
 		}
 		pthread_mutex_unlock(&philo->data->mutex_death);
-		pthread_mutex_lock(&philo->data->mutex_philo_meals);
-		if (philo->finished)
-		{
-			pthread_mutex_unlock(&philo->data->mutex_philo_meals);
-			usleep(100);
+		if (if_philo_finished(philo))
 			continue ;
-		}
-		pthread_mutex_unlock(&philo->data->mutex_philo_meals);
 		eat_sleep_think(philo);
 		if (philo->data->num_meal_flag == 0)
 			routine_help(philo);
